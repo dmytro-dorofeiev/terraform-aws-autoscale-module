@@ -16,7 +16,7 @@ data "aws_ecs_cluster" "default" {
 }
 
 module "autoscale" {
-  source       = "terraform-aws-autoscale-module"
+  source       = "git@github.com:dmytro-dorofeiev/terraform-aws-autoscale-module.git"
 
   service_name = "my-service"
   cluster_name = local.ecs_cluster_name
