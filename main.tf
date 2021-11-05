@@ -19,6 +19,8 @@ resource "aws_appautoscaling_target" "this" {
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 
+  # depends_on = [aws_ecs_service.service]
+
   lifecycle {
     ignore_changes = [role_arn]
   }
@@ -34,8 +36,8 @@ resource "aws_appautoscaling_policy" "cpu_load" {
   target_tracking_scaling_policy_configuration {
     target_value = var.max_cpu_util
 
-    scale_in_cooldown  = 300
-    scale_out_cooldown = 300
+    scale_in_cooldown  = var.scale_in_cpu_cooldown
+    scale_out_cooldown = var.scale_out_cpu_cooldown
 
     predefined_metric_specification {
       predefined_metric_type = "ECSServiceAverageCPUUtilization"
@@ -55,8 +57,8 @@ resource "aws_appautoscaling_policy" "memory_load" {
   target_tracking_scaling_policy_configuration {
     target_value = var.max_memory_util
 
-    scale_in_cooldown  = 300
-    scale_out_cooldown = 300
+    scale_in_cooldown  = var.scale_in_mem_cooldown
+    scale_out_cooldown = var.scale_out_mem_cooldown
 
     predefined_metric_specification {
       predefined_metric_type = "ECSServiceAverageMemoryUtilization"

@@ -16,7 +16,7 @@ data "aws_ecs_cluster" "default" {
 }
 
 module "autoscale" {
-  source       = "git@github.com:dmytro-dorofeiev/terraform-aws-autoscale-module.git"
+  source       = "git::https://github.com/dmytro-dorofeiev/terraform-aws-autoscale-module.git"
 
   service_name = "my-service"
   cluster_name = local.ecs_cluster_name
@@ -37,7 +37,7 @@ module "autoscale" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.63.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.64.1 |
 
 ## Modules
 
@@ -58,10 +58,14 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | ECS cluster name | `string` | n/a | yes |
-| <a name="input_max_cpu_util"></a> [max\_cpu\_util](#input\_max\_cpu\_util) | (Required) The target value for cpu utilization scaling. | `number` | `100` | no |
+| <a name="input_max_cpu_util"></a> [max\_cpu\_util](#input\_max\_cpu\_util) | (Required) The target value for cpu utilization scaling. | `number` | `80` | no |
 | <a name="input_max_memory_util"></a> [max\_memory\_util](#input\_max\_memory\_util) | (Required) The target value for memory utilization scaling. | `number` | `80` | no |
 | <a name="input_max_replicas"></a> [max\_replicas](#input\_max\_replicas) | (Required) The max capacity of the scalable target | `number` | `1` | no |
 | <a name="input_min_replicas"></a> [min\_replicas](#input\_min\_replicas) | (Required) The min capacity of the scalable target. | `number` | `1` | no |
+| <a name="input_scale_in_cpu_cooldown"></a> [scale\_in\_cpu\_cooldown](#input\_scale\_in\_cpu\_cooldown) | (Optional) The amount of time, in seconds, after a scale in activity completes before another scale in activity can start. | `number` | `300` | no |
+| <a name="input_scale_in_mem_cooldown"></a> [scale\_in\_mem\_cooldown](#input\_scale\_in\_mem\_cooldown) | (Optional) The amount of time, in seconds, after a scale in activity completes before another scale in activity can start. | `number` | `300` | no |
+| <a name="input_scale_out_cpu_cooldown"></a> [scale\_out\_cpu\_cooldown](#input\_scale\_out\_cpu\_cooldown) | (Optional) The amount of time, in seconds, after a scale out activity completes before another scale out activity can start. | `number` | `300` | no |
+| <a name="input_scale_out_mem_cooldown"></a> [scale\_out\_mem\_cooldown](#input\_scale\_out\_mem\_cooldown) | (Optional) The amount of time, in seconds, after a scale out activity completes before another scale out activity can start. | `number` | `300` | no |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | ECS service name | `string` | n/a | yes |
 
 ## Outputs
